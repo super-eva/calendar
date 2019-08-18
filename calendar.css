@@ -1,0 +1,59 @@
+.previous {
+  float: left;
+  padding-left: 5px;
+}
+
+.next {
+  float: right;
+  padding-right: 5px;
+}
+
+.selector {
+  width: 20%;
+  display: inline-block;
+  text-align: center;
+  font-weight:bold;
+}
+
+.week{
+  width: 20%;
+}
+
+.month{
+  width: 20%;
+}
+
+.year{
+  width: 20%;
+}
+
+
+td {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+thead {
+  font-weight:bold;
+}
+
+.selected-day {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: #db3d44;
+  color: white;
+}
+
+.today {
+  color: #db3d44;
+}
+
+.prev-month {
+  color: #eeeeee;
+}
+
+.next-month {
+  color: #eeeeee;
+}

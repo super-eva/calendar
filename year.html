@@ -1,0 +1,16 @@
+<div ng-controller="yearCtrl">
+    <div class="selector">
+        <span>{{yearStart}}-{{yearEnd}}</span>
+        <a ng-click="prevDecade()" href="#" class="previous">&#8249;</a>
+        <a ng-click="nextDecade()" href="#" class="next">&#8250;</a>
+    </div>
+    <table class="year">
+        <tbody>   
+            <tr ng-repeat="yearRow in years">
+                <td ng-repeat="year in yearRow"
+                    ng-class="getClass(year)"
+                    ng-click="selectYear(year)">{{year.num}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

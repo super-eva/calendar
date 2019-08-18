@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+	  	<meta charset="UTF-8">
+	  	<title>demo page</title>
+	  	<link rel="stylesheet" href="calendar.css">
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	</head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="app.js"></script>
+	<script src="week.js"></script>
+	<script src="month.js"></script>
+	<script src="year.js"></script>
+	<body>
+		<div ng-controller="mainCtrl">	
+		  <input ng-model="displayDate" ng-change="setValue(displayDate)">
+		  <div>
+		    <div ng-if="viewType=='week'" ng-include="'week.html'"></div>
+		  	<div ng-if="viewType=='month'" ng-include="'month.html'"></div>		
+		 	<div ng-if="viewType=='year'" ng-include="'year.html'"></div>
+		  </div>
+		  {{selectedDate}}
+		</div>
+	</body>
+</html>
