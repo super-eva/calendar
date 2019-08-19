@@ -38,11 +38,11 @@ app.controller("mainController", function($rootScope) {
 
     self.setValue = function(displayDate){
     	let regexp = /^\d{4}-\d{2}-\d{2}/g;
-    	let result = displayDate.match(regexp);
+    	// let result = displayDate.match(regexp);
+        $rootScope.isDateValid = regexp.test(displayDate);
     	
-    	if(result && result.length > 0){
+    	if($rootScope.isDateValid){
     		let date = displayDate.split('-');
-    		console.log(date);
     		$rootScope.selectedDate = {
     			year : parseInt(date[0]),
 		        month : parseInt(date[1]),
@@ -50,7 +50,9 @@ app.controller("mainController", function($rootScope) {
 			    isSelected : true
     		}
     	}
+    }
 
-    	console.log($rootScope.displayDate);
+    self.show = function(){
+        $rootScope.isShow = !$rootScope.isShow;
     }
 });

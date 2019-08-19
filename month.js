@@ -9,7 +9,6 @@ app.controller("monthController", function($rootScope) {
 	}
 
 	function getMonth(){
-		console.log("getNonth");
 		let tempMonths = [];
 		let months = [];
 		

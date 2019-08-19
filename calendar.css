@@ -9,8 +9,6 @@
 }
 
 .selector {
-  width: 20%;
-  display: inline-block;
   text-align: center;
   font-weight:bold;
 }
@@ -56,4 +54,8 @@ thead {
 
 .next-month {
   color: #eeeeee;
+}
+
+.zero-padding {
+  padding-left: 0 !important;
 }

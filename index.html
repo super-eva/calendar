@@ -4,35 +4,48 @@
 	  	<meta charset="UTF-8">
 	  	<title>demo page</title>
 	  	<link rel="stylesheet" href="calendar.css">
-	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	</head>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script src="app.js"></script>
 	<script src="week.js"></script>
 	<script src="month.js"></script>
 	<script src="year.js"></script>
+	<script src="DateFormat.js"></script>
 	<body>
-		<div ng-controller="mainController as mainCtrl">	
-		  <input ng-model="$root.displayDate" ng-change="mainCtrl.setValue($root.displayDate)">
-		  <div>
-		    <div ng-if="$root.viewType=='week'" ng-include="'week.html'"></div>
-		  	<div ng-if="$root.viewType=='month'" ng-include="'month.html'"></div>		
-		 	<div ng-if="$root.viewType=='year'" ng-include="'year.html'"></div>
-		  </div>
-		  {{$root.viewType}}
-		  {{selectedDate}}
+		<div class="container">
+			<h2>Datepicker</h2>
+			<div ng-controller="mainController as mainCtrl" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 zero-padding">	
+			  	<div class="form-group">
+				  	<div class="input-group">
+				  		<span class="input-group-addon" id="start-date"><span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					  	<input class="form-control" id="stuff" ng-model="$root.displayDate" ng-change="mainCtrl.setValue($root.displayDate)" ng-click="mainCtrl.show()" maxlength=10>
+					  	<span ng-if="$root.isDateValid" class="glyphicon glyphicon-ok form-control-feedback"></span>
+					  	<span ng-if="!$root.isDateValid && $root.isDateValid != undefined" class="glyphicon glyphicon-remove form-control-feedback"></span>
+					</div>
+				</div>
+				<div ng-show="$root.isShow">
+				    <div ng-if="$root.viewType=='week'" ng-include="'week.html'"></div>
+				  	<div ng-if="$root.viewType=='month'" ng-include="'month.html'"></div>		
+				 	<div ng-if="$root.viewType=='year'" ng-include="'year.html'"></div>
+				 </div>
+			</div>
 		</div>
 	</body>
 </html>
 
 <script type="text/ng-template" id="week.html">
 	<div ng-controller="weekController as weekCtrl">
-		<div class="selector">
-		  <span ng-click="$root.changeView('month')">{{$root.getMonthName($root.currentMonth)}} {{$root.currentYear}}</span>
-			<a ng-click="weekCtrl.prevMonth()" href="#" class="previous">&#8249;</a>
-			<a ng-click="weekCtrl.nextMonth()" href="#" class="next">&#8250;</a>
+		<div class="text-center">
+			<div class="selector">
+			  	<span ng-click="$root.changeView('month')">{{$root.getMonthName($root.currentMonth)}} {{$root.currentYear}}
+			  	</span>
+				<span ng-click="weekCtrl.prevMonth()" class="previous glyphicon glyphicon-chevron-left"></span>
+				<span ng-click="weekCtrl.nextMonth()" class="next glyphicon glyphicon-chevron-right"></span>
+			</div>
 		</div>
-		<table class="week">
+		<table class="week table">
 		<thead>
 		  <tr>
 			<td>Su</td>
@@ -58,38 +71,42 @@
 
 <script type="text/ng-template" id="month.html">
 	<div ng-controller="monthController as monthCtrl">
-		<div class="selector">
-			<span ng-click="$root.changeView('year')">{{$root.currentYear}}</span>
-			<a ng-click="monthCtrl.prevYear()" href="#" class="previous">&#8249;</a>
-			<a ng-click="monthCtrl.nextYear()" href="#" class="next">&#8250;</a>
+		<div class="text-center">
+			<div class="selector">
+				<span ng-click="$root.changeView('year')">{{$root.currentYear}}</span>
+				<span ng-click="monthCtrl.prevYear()" class="previous glyphicon glyphicon-chevron-left"></span>
+				<span ng-click="monthCtrl.nextYear()" class="next glyphicon glyphicon-chevron-right"></span>
+			</div>
+			<table class="month table">
+				<tbody>   
+					<tr ng-repeat="month_row in monthCtrl.months">
+						<td ng-repeat="month in month_row"
+							ng-class="$root.getClass(month)"
+							ng-click="monthCtrl.selectMonth(month)">{{$root.getMonthName(month.num)}}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<table class="month">
-			<tbody>   
-				<tr ng-repeat="month_row in monthCtrl.months">
-					<td ng-repeat="month in month_row"
-						ng-class="$root.getClass(month)"
-						ng-click="monthCtrl.selectMonth(month)">{{$root.getMonthName(month.num)}}</td>
-				</tr>
-			</tbody>
-		</table>
 	</div>
 </script>
 
 <script type="text/ng-template" id="year.html">
 	<div ng-controller="yearController as yearCtrl">
-		<div class="selector">
-			<span>{{yearCtrl.yearStart}}-{{yearCtrl.yearEnd}}</span>
-			<a ng-click="yearCtrl.prevDecade()" href="#" class="previous">&#8249;</a>
-			<a ng-click="yearCtrl.nextDecade()" href="#" class="next">&#8250;</a>
+		<div class="text-center">
+			<div class="selector">
+				<span>{{yearCtrl.yearStart}}-{{yearCtrl.yearEnd}}</span>
+				<span ng-click="yearCtrl.prevDecade())" class="previous glyphicon glyphicon-chevron-left"></span>
+				<span ng-click="yearCtrl.nextDecade()" class="next glyphicon glyphicon-chevron-right"></span>
+			</div>
+			<table class="year table">
+				<tbody>   
+					<tr ng-repeat="yearRow in yearCtrl.years">
+						<td ng-repeat="year in yearRow"
+							ng-class="$root.getClass(year)"
+							ng-click="yearCtrl.selectYear(year)">{{year.num}}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<table class="year">
-			<tbody>   
-				<tr ng-repeat="yearRow in yearCtrl.years">
-					<td ng-repeat="year in yearRow"
-						ng-class="$root.getClass(year)"
-						ng-click="yearCtrl.selectYear(year)">{{year.num}}</td>
-				</tr>
-			</tbody>
-		</table>
 	</div>
 </script>

@@ -3,16 +3,17 @@ app.controller("weekController", function($rootScope) {
     var self = this;
     self.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
 
+    //when user type the date, refresh data
     $rootScope.$watch('selectedDate', function(newValue, oldValue){
         if(newValue != oldValue){
             $rootScope.currentYear = $rootScope.selectedDate.year;
             $rootScope.currentMonth = $rootScope.selectedDate.month;
             self.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
-            console.log($rootScope.displayDate);
         }
     });
 
     function Day(year, month, date, isPrev, isNext, isSelected, isToday) {
+
         this.year = year,
         this.month = month,
 	    this.date = date;
@@ -20,6 +21,8 @@ app.controller("weekController", function($rootScope) {
 	    this.isNext = isNext;
 	    this.isSelected = isSelected;
         this.isToday = isToday;
+
+        this.fullDate = new Date(year, month, date);
 	}
 
     function getWeeks(year, month){
@@ -74,7 +77,6 @@ app.controller("weekController", function($rootScope) {
     }
 
     function isToday(date){
-
         let today = new Date();
         if(date === today.getDate()
             && $rootScope.currentMonth === (today.getMonth()+1)
@@ -109,8 +111,7 @@ app.controller("weekController", function($rootScope) {
     }
 
     self.selectDay =function(day){
-
-        //if has prev selected date, reset it
+        //if has selected date, reset it
         for(let week in self.weeks){
             for( let day in self.weeks[week]){
                 if(self.weeks[week][day].isSelected === true){
@@ -119,24 +120,28 @@ app.controller("weekController", function($rootScope) {
             }
         }
        
+        //set new selected date
         day.isSelected = true;
-        $rootScope.selectedDate = day;
-        $rootScope.displayDate = getDisplayDate(day);
-        console.log($rootScope.displayDate);
+        $rootScope.selectedDate = {
+            year : day.year,
+            month : day.month,
+            date : day.date
+        }
+        $rootScope.displayDate = day.fullDate.Format('yyyy-MM-dd');
+        $rootScope.isDateValid = true;
+
+        //close the calendar after selecting date
+        $rootScope.isShow = !$rootScope.isShow;
         
-        // if selected date is next month, jump to next calendar
+        // if the selected date belongs to next month, jump to next month
         if(day.isNext){
             self.nextMonth();
         }
-        // if selected date is prev month, jump to prev calendar
+        // if the selected date belongs to prev month, jump to prev month
         if(day.isPrev){
             self.prevMonth();
         }
 
-    }
-
-    function getDisplayDate(day){
-        return day.year + '-' + day.month + '-' + day.date;
     }
 
 });
