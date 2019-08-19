@@ -1,12 +1,13 @@
-app.controller("weekCtrl", function($rootScope, $scope) {
+app.controller("weekController", function($rootScope) {
     
-    $scope.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
+    var self = this;
+    self.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
 
     $rootScope.$watch('selectedDate', function(newValue, oldValue){
         if(newValue != oldValue){
             $rootScope.currentYear = $rootScope.selectedDate.year;
             $rootScope.currentMonth = $rootScope.selectedDate.month;
-            $scope.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
+            self.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
             console.log($rootScope.displayDate);
         }
     });
@@ -83,7 +84,7 @@ app.controller("weekCtrl", function($rootScope, $scope) {
         return false;   
     }
 
-    $scope.prevMonth = function(){
+    self.prevMonth = function(){
     	//change to pre year if exceed the limit
     	if($rootScope.currentMonth - 1 === 0){
     		$rootScope.currentYear -= 1;
@@ -92,10 +93,10 @@ app.controller("weekCtrl", function($rootScope, $scope) {
     	else{
     		$rootScope.currentMonth -= 1;	
     	}
-    	$scope.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
+    	self.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
     }
 
-    $scope.nextMonth = function(){
+    self.nextMonth = function(){
     	//change to next year if exceed the limit
     	if($rootScope.currentMonth + 1 === 13){
     		$rootScope.currentYear += 1;
@@ -104,34 +105,38 @@ app.controller("weekCtrl", function($rootScope, $scope) {
     	else{
     		$rootScope.currentMonth += 1;
     	}	
-    	$scope.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
+    	self.weeks = getWeeks($rootScope.currentYear, $rootScope.currentMonth);
     }
 
-    $scope.selectDay =function(day){
+    self.selectDay =function(day){
 
         //if has prev selected date, reset it
-        for(let week in $scope.weeks){
-            for( let day in $scope.weeks[week]){
-                if($scope.weeks[week][day].isSelected === true){
-                    $scope.weeks[week][day].isSelected = false;
+        for(let week in self.weeks){
+            for( let day in self.weeks[week]){
+                if(self.weeks[week][day].isSelected === true){
+                    self.weeks[week][day].isSelected = false;
                 }
             }
         }
        
         day.isSelected = true;
         $rootScope.selectedDate = day;
-        $rootScope.displayDate = day.year + '-' + day.month + '-' + day.date;
+        $rootScope.displayDate = getDisplayDate(day);
         console.log($rootScope.displayDate);
         
         // if selected date is next month, jump to next calendar
         if(day.isNext){
-            $scope.nextMonth();
+            self.nextMonth();
         }
         // if selected date is prev month, jump to prev calendar
         if(day.isPrev){
-            $scope.prevMonth();
+            self.prevMonth();
         }
 
+    }
+
+    function getDisplayDate(day){
+        return day.year + '-' + day.month + '-' + day.date;
     }
 
 });

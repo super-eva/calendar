@@ -1,10 +1,11 @@
-app.controller("yearCtrl", function($rootScope, $scope) {
+app.controller("yearController", function($rootScope) {
 	
+	var self = this;
 	//get decade start year
 	let remainder = $rootScope.currentYear % 10;
-	$scope.yearStart = $rootScope.currentYear - remainder;
-	$scope.yearEnd = $scope.yearStart + 9;
-	$scope.years = getYears($scope.yearStart, $scope.yearEnd);
+	self.yearStart = $rootScope.currentYear - remainder;
+	self.yearEnd = self.yearStart + 9;
+	self.years = getYears(self.yearStart, self.yearEnd);
 
 	function Year(num, isPrev, isNext, isSelected) {
 	    this.num = num;
@@ -43,20 +44,20 @@ app.controller("yearCtrl", function($rootScope, $scope) {
 		return false;
 	}
 
-	$scope.prevDecade = function(){
-    	$scope.yearStart -= 10;
-    	$scope.yearEnd -= 10;	
-    	$scope.years = getYears($scope.yearStart, $scope.yearEnd);
+	self.prevDecade = function(){
+    	self.yearStart -= 10;
+    	self.yearEnd -= 10;	
+    	self.years = getYears(self.yearStart, self.yearEnd);
     }
 
-    $scope.nextDecade = function(){
-    	$scope.yearStart += 10;
-    	$scope.yearEnd += 10;	  	
-    	$scope.years = getYears($scope.yearStart, $scope.yearEnd);
+    self.nextDecade = function(){
+    	self.yearStart += 10;
+    	self.yearEnd += 10;	  	
+    	self.years = getYears(self.yearStart, self.yearEnd);
     }
 
-    $scope.selectYear =function(year){
+    self.selectYear =function(year){
     	$rootScope.currentYear = year.num;
-    	$scope.changeView('month');
+    	$rootScope.changeView('month');
     }
 });

@@ -1,6 +1,7 @@
-app.controller("monthCtrl", function($rootScope, $scope) {
+app.controller("monthController", function($rootScope) {
 	
-	$scope.months = getMonth(); 
+	var self = this;
+	self.months = getMonth(); 
 
 	function Month(num, isSelected) {
 	    this.num = num;
@@ -8,6 +9,7 @@ app.controller("monthCtrl", function($rootScope, $scope) {
 	}
 
 	function getMonth(){
+		console.log("getNonth");
 		let tempMonths = [];
 		let months = [];
 		
@@ -30,19 +32,19 @@ app.controller("monthCtrl", function($rootScope, $scope) {
 		return false;
 	}
 
-    $scope.prevYear = function(){
+    self.prevYear = function(){
     	$rootScope.currentYear -= 1;	
-    	$scope.months = getMonth(); 
+    	self.months = getMonth(); 
     }
 
-    $scope.nextYear = function(){
+    self.nextYear = function(){
     	$rootScope.currentYear += 1;    
-    	$scope.months = getMonth(); 	
+    	self.months = getMonth(); 	
     }
 
-    $scope.selectMonth = function(month){
+    self.selectMonth = function(month){
         $rootScope.currentMonth = month.num;
-        $scope.changeView('week');
+        $rootScope.changeView('week');
     }
 
 });

@@ -1,26 +1,27 @@
 var app = angular.module("myApp", []);
 
-app.controller("mainCtrl", function($rootScope, $scope) {
+app.controller("mainController", function($rootScope) {
 
+	var self = this;
 	var today = new Date();
 	$rootScope.currentMonth = today.getMonth()+1;
     $rootScope.currentYear = today.getFullYear();
     $rootScope.selectedDate = { };
     $rootScope.displayDate = '';
 
-    $scope.viewType = 'week';
-    $scope.name = ""
+    $rootScope.viewType = 'week';
 
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];    
-	$scope.getMonthName = function(monthNum){
+	$rootScope.getMonthName = function(monthNum){
     	return monthNames[monthNum-1];
     }
 
-    $scope.changeView = function(type){
-    	$scope.viewType = type;
+    $rootScope.changeView = function(type){
+		console.log(type);
+    	$rootScope.viewType = type;
     }
 
-    $scope.getClass = function(obj){
+    $rootScope.getClass = function(obj){
     	if(obj.isPrev){
     		return 'prev-month';
     	}
@@ -35,7 +36,7 @@ app.controller("mainCtrl", function($rootScope, $scope) {
     	}
     }
 
-    $scope.setValue = function(displayDate){
+    self.setValue = function(displayDate){
     	let regexp = /^\d{4}-\d{2}-\d{2}/g;
     	let result = displayDate.match(regexp);
     	
@@ -52,36 +53,4 @@ app.controller("mainCtrl", function($rootScope, $scope) {
 
     	console.log($rootScope.displayDate);
     }
-});
-
-app.directive('ngEnter', function () {
-    return function (scope, element, attrs) {
-    	console.log(element);
-        element.bind("keydown keypress", function (event) {
-        	console.log(event);
-            if(event.which === 13) {
-                scope.$apply(function (){
-                    scope.$eval(attrs.ngEnter);
-                });
-
-                event.preventDefault();
-            }
-        });
-    };
-});
-
-app.directive('datePicker', function () {
-	return {
-		restrict: 'AE',
-		templateUrl: 'calendar.html',
-		scope: {
-			date: '=',
-		},
-		replace: true,
-		link: function($scope, elem, attr, ctrl) {
-	      console.debug($scope);
-	      //var textField = $('input', elem).attr('ng-model', 'myDirectiveVar');
-	      // $compile(textField)($scope.$parent);
-	    }
-	}
 });
