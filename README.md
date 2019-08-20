@@ -5,7 +5,7 @@ A demo page for DatePicker
 Open index.html on browser
 
 # Used Library
-AngularJs v1.6.9
-bootstrap v3.3.7
+* AngularJs v1.6.9
+* bootstrap v3.3.7
 
 # Usage
