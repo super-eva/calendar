@@ -4,6 +4,12 @@ A demo page for DatePicker
 # Run
 Open index.html on browser
 
+# Browser Support 
+* Google Chrome 
+* Edge 
+* Firefox 
+* Internet Explorer 11
+
 # Used Library
 * AngularJs v1.6.9
 * bootstrap v3.3.7
