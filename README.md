@@ -2,5 +2,10 @@
 A demo page for DatePicker
 
 # Run
-Simple open index.html on browser
+Open index.html on browser
 
+# Used Library
+AngularJs v1.6.9
+bootstrap v3.3.7
+
+# Usage
