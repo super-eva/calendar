@@ -3,18 +3,20 @@
 	<head>
 	  	<meta charset="UTF-8">
 	  	<title>demo page</title>
-	  	<link rel="stylesheet" href="calendar.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	  	<link rel="stylesheet" href="css/calendar.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	</head>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-	<script src="app.js"></script>
-	<script src="week.js"></script>
-	<script src="month.js"></script>
-	<script src="year.js"></script>
-	<script src="DateFormat.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/DateFormat.js"></script>
+	<script src="controller/app.js"></script>
+	<script src="controller/week.js"></script>
+	<script src="controller/month.js"></script>
+	<script src="controller/year.js"></script>
 	<body>
 		<div class="container">
-			<h2>Datepicker</h2>
+			<h3>Datepicker</h3>
 			<div ng-controller="mainController as mainCtrl" class="col-xs-12 col-sm-12 col-md-4 col-lg-4 zero-padding">	
 			  	<div class="form-group">
 				  	<div class="input-group">
@@ -45,7 +47,7 @@
 				<span ng-click="weekCtrl.nextMonth()" class="next glyphicon glyphicon-chevron-right"></span>
 			</div>
 		</div>
-		<table class="week table">
+		<table class="table">
 		<thead>
 		  <tr>
 			<td>Su</td>
@@ -77,7 +79,7 @@
 				<span ng-click="monthCtrl.prevYear()" class="previous glyphicon glyphicon-chevron-left"></span>
 				<span ng-click="monthCtrl.nextYear()" class="next glyphicon glyphicon-chevron-right"></span>
 			</div>
-			<table class="month table">
+			<table class="table">
 				<tbody>   
 					<tr ng-repeat="month_row in monthCtrl.months">
 						<td ng-repeat="month in month_row"
@@ -95,10 +97,10 @@
 		<div class="text-center">
 			<div class="selector">
 				<span>{{yearCtrl.yearStart}}-{{yearCtrl.yearEnd}}</span>
-				<span ng-click="yearCtrl.prevDecade())" class="previous glyphicon glyphicon-chevron-left"></span>
+				<span ng-click="yearCtrl.prevDecade()" class="previous glyphicon glyphicon-chevron-left"></span>
 				<span ng-click="yearCtrl.nextDecade()" class="next glyphicon glyphicon-chevron-right"></span>
 			</div>
-			<table class="year table">
+			<table class="table">
 				<tbody>   
 					<tr ng-repeat="yearRow in yearCtrl.years">
 						<td ng-repeat="year in yearRow"

@@ -22,7 +22,7 @@ app.controller("weekController", function($rootScope) {
 	    this.isSelected = isSelected;
         this.isToday = isToday;
 
-        this.fullDate = new Date(year, month, date);
+        this.fullDate = new Date(year, month-1, date);
 	}
 
     function getWeeks(year, month){
@@ -141,7 +141,6 @@ app.controller("weekController", function($rootScope) {
         if(day.isPrev){
             self.prevMonth();
         }
-
     }
 
 });
